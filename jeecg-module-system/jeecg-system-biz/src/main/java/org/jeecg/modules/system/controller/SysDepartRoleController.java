@@ -136,6 +136,10 @@ public class SysDepartRoleController extends JeecgController<SysDepartRole, ISys
 	@ApiOperation(value="部门角色-通过id删除", notes="部门角色-通过id删除")
 	@DeleteMapping(value = "/delete")
 	public Result<?> delete(@RequestParam(name="id",required=true) String id) {
+		if(sysDepartRoleService.getById(id) == null){
+			return Result.error("无该用户");
+		}
+
 		sysDepartRoleService.removeById(id);
 		return Result.ok("删除成功!");
 	}
@@ -164,6 +168,9 @@ public class SysDepartRoleController extends JeecgController<SysDepartRole, ISys
 	@ApiOperation(value="部门角色-通过id查询", notes="部门角色-通过id查询")
 	@GetMapping(value = "/queryById")
 	public Result<?> queryById(@RequestParam(name="id",required=true) String id) {
+		if(sysDepartRoleService.getById(id) == null){
+			return Result.error("无该用户");
+		}
 		SysDepartRole sysDepartRole = sysDepartRoleService.getById(id);
 		return Result.ok(sysDepartRole);
 	}
